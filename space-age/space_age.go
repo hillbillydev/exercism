@@ -1,7 +1,10 @@
+//Package space give you different function to determine cool stuff in space.
 package space
 
+// Planet is a planer
 type Planet string
 
+// Age determines the age of someone in seconds on different planets.
 func Age(f float64, p Planet) float64 {
 	earthYear := (f / 31557600)
 	switch p {
