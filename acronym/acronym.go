@@ -3,20 +3,20 @@ package acronym
 
 import (
 	"strings"
-	"unicode"
 )
 
 // Abbreviate takes a string s and figures out what the acronym is.
 // "Ruby on Rails" -> "ROR"
 func Abbreviate(s string) string {
 	builder := strings.Builder{}
-	// Not sure about the replace here, it solves the issue, but it seems like a hack?
-	// The problem is that "Halley's Comet" become HSC.
-	normalized := strings.Replace(strings.ToLower(s), "'", "", -1)
-	for _, rune := range strings.Title(normalized) {
-		if unicode.IsLetter(rune) && unicode.IsUpper(rune) {
-			builder.WriteRune(unicode.ToUpper(rune))
+	s = strings.NewReplacer("'", "", "-", " ").Replace(s)
+	for _, word := range strings.Split(s, " ") {
+		if len(word) == 0 {
+			continue
 		}
+		builder.WriteString(word[:1])
 	}
-	return builder.String()
+	return strings.ToUpper(builder.String())
 }
+
+// NEW 100000	     15599 ns/op	   53712 B/op	      61 allocs/op
