@@ -1,3 +1,4 @@
+// Package raindrops determine the sound from the weight of raindrops. SCIENCE!
 package raindrops
 
 import (
