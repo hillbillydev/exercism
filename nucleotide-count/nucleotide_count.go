@@ -2,16 +2,13 @@
 package dna
 
 import (
-	"errors"
+	"fmt"
 )
-
-// ErrInvalidNucleotide is an error that occurs when the caller have an invalid nucleotide in the strand.
-var ErrInvalidNucleotide = errors.New("invalid nucleotide")
 
 // Histogram is a mapping from nucleotide to its count in given DNA.
 type Histogram map[rune]int
 
-// DNA is a list of nucleotides. Choose a suitable data type.
+// DNA represents a structure of the DNA.
 type DNA struct {
 	strand string
 }
@@ -19,30 +16,12 @@ type DNA struct {
 // Counts generates a histogram of valid nucleotides in the given DNA.
 // Returns an error if d contains an invalid nucleotide.
 func (d DNA) Counts() (Histogram, error) {
-	h := newHistogram()
-	for _, rune := range d.strand {
-		if ok := validateNucleotide(rune); !ok {
-			return Histogram{}, ErrInvalidNucleotide
+	h := Histogram{'A': 0, 'C': 0, 'G': 0, 'T': 0}
+	for _, r := range d.strand {
+		if _, exist := h[r]; !exist {
+			return Histogram{}, fmt.Errorf("%s is not a valid nucleotide", string(r))
 		}
-		h[rune]++
+		h[r]++
 	}
 	return h, nil
-}
-
-func validateNucleotide(r rune) bool {
-	switch r {
-	case 'A', 'C', 'G', 'T':
-		return true
-	default:
-		return false
-	}
-}
-
-func newHistogram() Histogram {
-	return Histogram{
-		'A': 0,
-		'C': 0,
-		'G': 0,
-		'T': 0,
-	}
 }
