@@ -12,9 +12,11 @@ import (
 // - If the number has 5 as a factor, output 'Plang'.
 // - If the number has 7 as a factor, output 'Plong'.
 // - If the number does not have 3, 5, or 7 as a factor,
+
+// 1923 ns/op	     360 B/op	      30 allocs/op
 func Convert(i int) string {
 	var result string
-	for _, factor := range primeFactors(i) {
+	for _, factor := range containsFactors(i, 3, 5, 7) {
 		switch factor {
 		case 3:
 			result += "Pling"
@@ -30,17 +32,12 @@ func Convert(i int) string {
 	return result
 }
 
-func primeFactors(n int) []int {
+func containsFactors(i int, primes ...int) []int {
 	var factors []int
-	if n > 2 {
-		factors = append(factors, n)
-	}
-	for i := 2; i*i < n; i++ {
-		if n%i == 0 {
-			factors = append(factors, i)
-			n = n / i
+	for _, v := range primes {
+		if i%v == 0 {
+			factors = append(factors, v)
 		}
 	}
-
 	return factors
 }
