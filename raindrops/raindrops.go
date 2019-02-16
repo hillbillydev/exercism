@@ -35,9 +35,10 @@ func primeFactors(n int) []int {
 	if n > 2 {
 		factors = append(factors, n)
 	}
-	for i := 2; i < n; i++ {
+	for i := 2; i*i < n; i++ {
 		if n%i == 0 {
 			factors = append(factors, i)
+			n = n / i
 		}
 	}
 
