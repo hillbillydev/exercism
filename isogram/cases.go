@@ -15,14 +15,11 @@ func IsIsogram(s string) bool {
 		if !unicode.IsLetter(r) {
 			continue
 		}
-		if v := runes[r]; v {
+		if runes[r] {
 			return false
 		}
-
 		runes[r] = true
 	}
 
 	return true
 }
-
-// 200000	      6786 ns/op	    1095 B/op	      11 allocs/op
