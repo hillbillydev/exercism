@@ -10,35 +10,35 @@ var testCases = []struct {
 	candidates  []string
 	expected    []string
 }{
-	// {
-	// 	description: "no matches",
-	// 	subject:     "diaper",
-	// 	candidates: []string{
-	// 		"hello",
-	// 		"world",
-	// 		"zombies",
-	// 		"pants"},
-	// 	expected: []string{},
-	// },
-	// {
-	// 	description: "detects two anagrams",
-	// 	subject:     "master",
-	// 	candidates: []string{
-	// 		"stream",
-	// 		"pigeon",
-	// 		"maters"},
-	// 	expected: []string{
-	// 		"stream",
-	// 		"maters"},
-	// },
-	// {
-	// 	description: "does not detect anagram subsets",
-	// 	subject:     "good",
-	// 	candidates: []string{
-	// 		"dog",
-	// 		"goody"},
-	// 	expected: []string{},
-	// },
+	{
+		description: "no matches",
+		subject:     "diaper",
+		candidates: []string{
+			"hello",
+			"world",
+			"zombies",
+			"pants"},
+		expected: []string{},
+	},
+	{
+		description: "detects two anagrams",
+		subject:     "master",
+		candidates: []string{
+			"stream",
+			"pigeon",
+			"maters"},
+		expected: []string{
+			"stream",
+			"maters"},
+	},
+	{
+		description: "does not detect anagram subsets",
+		subject:     "good",
+		candidates: []string{
+			"dog",
+			"goody"},
+		expected: []string{},
+	},
 	{
 		description: "detects anagram",
 		subject:     "listen",
