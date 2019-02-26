@@ -3,17 +3,15 @@ package pangram
 
 import (
 	"strings"
-	"unicode"
 )
 
-// IsPangram determines if the sentence contains the whole albabeth.
-func IsPangram(sentence string) bool {
-	runes := make(map[rune]int)
-	for _, r := range strings.ToLower(sentence) {
-		if !unicode.IsLetter(r) {
-			continue
+// IsPangram checks that input is a pangram.
+func IsPangram(input string) bool {
+	input = strings.ToLower(input)
+	for r := 'a'; r <= 'z'; r++ {
+		if !strings.ContainsRune(input, r) {
+			return false
 		}
-		runes[r]++
 	}
-	return len(runes) == 26
+	return true
 }
