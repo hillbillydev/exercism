@@ -13,14 +13,11 @@ type Frequency map[string]int
 // WordCount counts the words of an sentence.
 func WordCount(sentence string) Frequency {
 	result := make(Frequency)
-	reg := regexp.MustCompile(`[A-Za-z0-9']+`)
+	reg := regexp.MustCompile(`\w+('\w+)?`)
 
 	for _, word := range reg.FindAllString(strings.ToLower(sentence), -1) {
-		word = strings.TrimFunc(word, isApostrophes)
 		result[word]++
 	}
 
 	return result
 }
-
-func isApostrophes(r rune) bool { return r == '\'' }
