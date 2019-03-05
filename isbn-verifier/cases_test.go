@@ -9,8 +9,8 @@ var testCases = []struct {
 	expected    bool
 	description string
 }{
-	// {"3-598-21508-8", true, "valid isbn number"},
-	// {"3-598-21508-9", false, "invalid isbn check digit"},
+	{"3-598-21508-8", true, "valid isbn number"},
+	{"3-598-21508-9", false, "invalid isbn check digit"},
 	{"3-598-21507-X", true, "valid isbn number with a check digit of 10"},
 	{"3-598-21507-A", false, "check digit is a character other than X"},
 	{"3-598-P1581-X", false, "invalid character in isbn"},
