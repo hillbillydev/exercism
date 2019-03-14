@@ -9,26 +9,26 @@ var testCases = []struct {
 	input       string
 	ok          bool
 }{
-	// {
-	// 	"single digit strings can not be valid",
-	// 	"1",
-	// 	false,
-	// },
-	// {
-	// 	"a single zero is invalid",
-	// 	"0",
-	// 	false,
-	// },
-	// {
-	// 	"a simple valid SIN that remains valid if reversed",
-	// 	"059",
-	// 	true,
-	// },
-	// {
-	// 	"a simple valid SIN that becomes invalid if reversed",
-	// 	"59",
-	// 	true,
-	// },
+	{
+		"single digit strings can not be valid",
+		"1",
+		false,
+	},
+	{
+		"a single zero is invalid",
+		"0",
+		false,
+	},
+	{
+		"a simple valid SIN that remains valid if reversed",
+		"059",
+		true,
+	},
+	{
+		"a simple valid SIN that becomes invalid if reversed",
+		"59",
+		true,
+	},
 	{
 		"a valid Canadian SIN",
 		"055 444 285",
