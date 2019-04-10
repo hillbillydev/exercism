@@ -7,11 +7,8 @@ import (
 
 // Total gives the all the grains on each square on a chess board.
 func Total() uint64 {
-	var sum uint64
-	for i := 1; i <= 64; i++ {
-		sum += 1 << uint(i-1)
-	}
-	return sum
+	sum := 0 << 63
+	return uint64(^sum)
 }
 
 // Square take the number of the square and return the amount of grains on that square.
