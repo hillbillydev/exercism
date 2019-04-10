@@ -9,11 +9,7 @@ import (
 func Total() uint64 {
 	var sum uint64
 	for i := 1; i <= 64; i++ {
-		v, err := Square(i)
-		if err != nil {
-			continue
-		}
-		sum += v
+		sum += 1 << uint(i-1)
 	}
 	return sum
 }
