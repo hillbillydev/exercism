@@ -69,65 +69,65 @@ var eqTests = []struct {
 	want   bool
 }{
 	// clocks with same time
-	// {
-	// 	hm{15, 37},
-	// 	hm{15, 37},
-	// 	true,
-	// },
+	{
+		hm{15, 37},
+		hm{15, 37},
+		true,
+	},
 	// // clocks a minute apart
-	// {
-	// 	hm{15, 36},
-	// 	hm{15, 37},
-	// 	false,
-	// },
+	{
+		hm{15, 36},
+		hm{15, 37},
+		false,
+	},
 	// // clocks an hour apart
-	// {
-	// 	hm{14, 37},
-	// 	hm{15, 37},
-	// 	false,
-	// },
+	{
+		hm{14, 37},
+		hm{15, 37},
+		false,
+	},
 	// clocks with hour overflow
-	// {
-	// 	hm{10, 37},
-	// 	hm{34, 37},
-	// 	true,
-	// },
+	{
+		hm{10, 37},
+		hm{34, 37},
+		true,
+	},
 	// // clocks with hour overflow by several days
-	// {
-	// 	hm{3, 11},
-	// 	hm{99, 11},
-	// 	true,
-	// },
+	{
+		hm{3, 11},
+		hm{99, 11},
+		true,
+	},
 	// // clocks with negative hour
-	// {
-	// 	hm{22, 40},
-	// 	hm{-2, 40},
-	// 	true,
-	// },
+	{
+		hm{22, 40},
+		hm{-2, 40},
+		true,
+	},
 	// // clocks with negative hour that wraps
-	// {
-	// 	hm{17, 3},
-	// 	hm{-31, 3},
-	// 	true,
-	// },
+	{
+		hm{17, 3},
+		hm{-31, 3},
+		true,
+	},
 	// // clocks with negative hour that wraps multiple times
-	// {
-	// 	hm{13, 49},
-	// 	hm{-83, 49},
-	// 	true,
-	// },
+	{
+		hm{13, 49},
+		hm{-83, 49},
+		true,
+	},
 	// // clocks with minute overflow
-	// {
-	// 	hm{0, 1},
-	// 	hm{0, 1441},
-	// 	true,
-	// },
+	{
+		hm{0, 1},
+		hm{0, 1441},
+		true,
+	},
 	// clocks with minute overflow by several days
-	// {
-	// 	hm{2, 2},
-	// 	hm{2, 4322},
-	// 	true,
-	// },
+	{
+		hm{2, 2},
+		hm{2, 4322},
+		true,
+	},
 	// clocks with negative minute
 	{
 		hm{2, 40},
