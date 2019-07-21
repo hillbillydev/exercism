@@ -4,39 +4,40 @@ import (
 	"fmt"
 )
 
+// Clock holds measurments of time.
 type Clock struct {
-	m int
+	minutes int
 }
 
+// New sets up a new Clock.
 func New(hours, minutes int) Clock {
 	return Clock{
-		m: setupTime(hours*60 + minutes),
+		minutes: setupTime(hours*60 + minutes),
 	}
 }
 
+// Add adds minutes to a clock.
 func (c Clock) Add(minutes int) Clock {
-	c.m += minutes
+	c.minutes = setupTime(c.minutes + minutes)
 	return c
 }
 
+// Subtract minutes from a clock.
 func (c Clock) Subtract(minutes int) Clock {
-	c.m -= minutes
+	c.minutes = setupTime(c.minutes - minutes)
 	return c
 }
 
+// String implmenets the Stringer interface.
 func (c Clock) String() string {
-	minutes := setupTime(c.m)
-	return fmt.Sprintf("%02d:%02d", minutes/60, minutes%60)
+	return fmt.Sprintf("%02d:%02d", c.minutes/60, c.minutes%60)
 
 }
-func (c Clock) Equal(to Clock) bool {
-	return setupTime(to.m) == setupTime(c.m)
-}
 
-func setupTime(minutes int) int {
-	minutes = minutes % (24 * 60)
-	if minutes < 0 {
-		minutes += (24 * 60)
+func setupTime(m int) int {
+	m %= (24 * 60)
+	if m < 0 {
+		m += (24 * 60)
 	}
-	return minutes
+	return m
 }

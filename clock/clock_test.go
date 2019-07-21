@@ -1,7 +1,6 @@
 package clock
 
 import (
-	"reflect"
 	"testing"
 )
 
@@ -37,7 +36,6 @@ func TestCreateClock(t *testing.T) {
 }
 
 func TestAddMinutes(t *testing.T) {
-
 	for _, a := range addTests {
 		if got := New(a.h, a.m).Add(a.a); got.String() != a.want {
 			t.Fatalf("New(%d, %d).Add(%d) = %q, want %q",
@@ -57,23 +55,12 @@ func TestSubtractMinutes(t *testing.T) {
 	t.Log(len(subtractTests), "test cases")
 }
 
-func TestCompareClocks(t *testing.T) {
-	for i, e := range eqTests {
-		clock1 := New(e.c1.h, e.c1.m)
-		clock2 := New(e.c2.h, e.c2.m)
-		got := clock1.Equal(clock2)
-		if got != e.want {
-			t.Logf("Test nr: %d", i)
-			t.Log("Clock1:", clock1)
-			t.Log("Clock2:", clock2)
-			t.Logf("Clock1 == Clock2 is %t, want %t", got, e.want)
-			if reflect.DeepEqual(clock1, clock2) {
-				t.Log("(Hint: see comments in clock_test.go.)")
-			}
-			t.FailNow()
-		}
+func TestCompareAfterAdd(t *testing.T) {
+	c1 := New(0, 0)
+	c2 := New(23, 59).Add(1)
+	if c1 != c2 {
+		t.Fatal("23:59 + 1 minute should be equal to 00:00")
 	}
-	t.Log(len(eqTests), "test cases")
 }
 
 func BenchmarkAddMinutes(b *testing.B) {
