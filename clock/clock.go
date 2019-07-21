@@ -16,7 +16,7 @@ func New(hours, minutes int) Clock {
 	}
 }
 
-// Add adds minutes to a clock.
+// Add adds hours to a clock.
 func (c Clock) Add(minutes int) Clock {
 	c.minutes = setupTime(c.minutes + minutes)
 	return c
