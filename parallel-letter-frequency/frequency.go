@@ -20,8 +20,10 @@ func Frequency(s string) FreqMap {
 // ConcurrentFrequency takes a slice of strings
 // and concurrently finds the frequency of those words.
 func ConcurrentFrequency(s []string) FreqMap {
+
 	result := FreqMap{}
 	temp := []FreqMap{}
+	mtx := sync.Mutex{}
 	wg := sync.WaitGroup{}
 
 	for _, v := range s {
@@ -29,6 +31,8 @@ func ConcurrentFrequency(s []string) FreqMap {
 		go func(text string) {
 			defer wg.Done()
 			m := Frequency(text)
+			mtx.Lock()
+			defer mtx.Unlock()
 			temp = append(temp, m)
 		}(v)
 	}
