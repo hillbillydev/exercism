@@ -5,7 +5,7 @@ import (
 	"sort"
 )
 
-// Record represent an simple unstructured data structure 
+// Record represent an simple unstructured data structure
 type Record struct {
 	ID, Parent int
 }
