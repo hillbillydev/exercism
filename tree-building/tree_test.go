@@ -220,7 +220,7 @@ func (n Node) String() string {
 	return fmt.Sprintf("%d:%s", n.ID, n.Children)
 }
 
-func MakeTreeSuccess(t *testing.T) {
+func TestMakeTreeSuccess(t *testing.T) {
 	for _, tt := range successTestCases {
 		actual, err := Build(tt.input)
 		if err != nil {
