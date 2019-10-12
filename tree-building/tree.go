@@ -1,9 +1,9 @@
 package tree
 
 import (
+	"errors"
 	"fmt"
 	"sort"
-	"errors"
 )
 
 // Record represent an simple unstructured data structure
@@ -25,14 +25,14 @@ func Build(records []Record) (*Node, error) {
 
 	sort.Slice(records, func(i, j int) bool { return records[i].ID < records[j].ID })
 	var (
-		nodes    []*Node
-		lastRecord = records[len(records)- 1]
-		unique = make(map[int]bool)
+		nodes      []*Node
+		lastRecord = records[len(records)-1]
+		unique     = make(map[int]bool)
 	)
 
 	// if the last records has an ID of 5 and the lenght is 4 in the slice
 	// it means that the slice is not continuous.
-	if lastRecord.ID > len(records) - 1 {
+	if lastRecord.ID > len(records)-1 {
 		return nil, errors.New("Error: non-continuous nodes")
 	}
 
