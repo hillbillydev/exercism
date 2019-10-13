@@ -19,7 +19,7 @@ func Day(w WeekSchedule, weekday time.Weekday, month time.Month, year int) int {
 	var (
 		result int
 		count  int
-		t      = time.Date(year, month, 1, 0, 0, 0, 0, time.UTC)
+		t      = time.Date(year, month, 0, 0, 0, 0, 0, time.UTC)
 	)
 
 	if w == Teenth {
@@ -28,24 +28,26 @@ func Day(w WeekSchedule, weekday time.Weekday, month time.Month, year int) int {
 		t = t.AddDate(0, 0, 12)
 	}
 
-	for WeekSchedule(count) < w {
-		if t.Weekday() == weekday {
-			if w == Teenth {
-				// Found the first monday between 10 and 19.
-				return t.Day()
-			}
+	for count < int(w) {
+		t = t.AddDate(0, 0, 1)
 
-			if t.Month() != month {
-				// If we're entering a new month it means that the last
-				// result is the last Weekday.
-				return result
-			}
-
-			result = t.Day()
-			count++
+		if t.Month() != month {
+			// If we're entering a new month it means that the last
+			// result is the last Weekday.
+			break
 		}
 
-		t = t.AddDate(0, 0, 1)
+		if t.Weekday() != weekday {
+			continue
+		}
+
+		if w == Teenth {
+			// Found the first monday between 10 and 19.
+			return t.Day()
+		}
+
+		result = t.Day()
+		count++
 	}
 
 	return result
