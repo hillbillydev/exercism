@@ -1,3 +1,4 @@
+// Package robotname handles the generation of robots.
 package robotname
 
 import (
@@ -5,10 +6,13 @@ import (
 	"math/rand"
 )
 
+// Robot represents the core struct in this package.
 type Robot struct {
 	name string
 }
 
+// Name gives back the name of the robot,
+// if it doesn't have a name it generates one.
 func (r *Robot) Name() (string, error) {
 	if r.name != "" {
 		return r.name, nil
@@ -18,6 +22,7 @@ func (r *Robot) Name() (string, error) {
 	return r.name, nil
 }
 
+// Reset removes the old name and generate a new one.
 func (r *Robot) Reset() {
 	r.name = generateRandomName()
 }
@@ -32,4 +37,3 @@ func generateRandomName() string {
 	}
 	return fmt.Sprintf("%s%d", string(b), numbers)
 }
-
