@@ -28,12 +28,14 @@ func (r *Robot) Reset() {
 }
 
 func generateRandomName() string {
-	numbers := 100 + rand.Intn(999-100)
+	var (
+		numbers = 100 + rand.Intn(999-100)
+		letters = []rune{randomRune(), randomRune()}
+	)
 
-	var letters = []rune("ABCDEFGHIJKLMNOPQRSTUVWXYZ")
-	b := make([]rune, 2)
-	for i := range b {
-		b[i] = letters[rand.Intn(len(letters))]
-	}
-	return fmt.Sprintf("%s%d", string(b), numbers)
+	return fmt.Sprintf("%s%d", string(letters), numbers)
+}
+
+func randomRune() rune {
+	return 65 + rune(rand.Intn(91-65))
 }
