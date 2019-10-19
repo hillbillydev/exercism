@@ -2,14 +2,12 @@ package linkedlist
 
 import (
 	"errors"
-	"fmt"
 )
 
-// Todo come up with name
 var ErrEmptyList = errors.New("error: list can't be empty")
 
 type List struct {
-	nodes []*Node
+	*Node
 }
 
 type Node struct {
@@ -26,6 +24,9 @@ func (n *Node) Prev() *Node {
 }
 
 func (n *Node) First() *Node {
+	if n == nil {
+		return nil
+	}
 	last := n
 	for {
 		node := last.Prev()
@@ -38,6 +39,10 @@ func (n *Node) First() *Node {
 }
 
 func (n *Node) Last() *Node {
+	if n == nil {
+		return nil
+	}
+
 	last := n
 	for {
 		node := last.Next()
@@ -54,42 +59,46 @@ func NewList(items ...interface{}) *List {
 		return &List{}
 	}
 
-	var nodes []*Node
 	root, rest := items[0], items[1:]
-	temp := &Node{Val: root}
-	nodes = append(nodes, temp)
+	rootNode := &Node{Val: root}
+	prev := rootNode
 	for _, item := range rest {
-		nasd := &Node{Val: item, prev: temp}
-		temp.next = nasd
-		temp = nasd
-		nodes = append(nodes, nasd)
+		tmp := &Node{
+			Val:  item,
+			prev: prev,
+		}
+
+		prev.next = tmp
+		prev = tmp
 	}
-	return &List{nodes: nodes}
+
+	return &List{Node: rootNode}
 }
 
 func (l *List) PushFront(item interface{})     {}
 func (l *List) PushBack(item interface{})      {}
 func (l *List) PopFront() (interface{}, error) { panic("") }
 func (l *List) PopBack() (interface{}, error)  { panic("") }
-func (l *List) First() *Node {
-	if len(l.nodes) == 0 {
-		return nil
-	}
-	return l.nodes[0]
+
+func (l *List) Reverse() {
+	//	var nodes []*Node
+	//
+	//	last := l.Last()
+	//	for {
+	//		node := last.Prev()
+	//		if node == nil {
+	//			break
+	//		}
+	//		last = node
+	//		nodes = append(nodes, node)
+	//	}
 }
-func (l *List) Last() *Node {
-	if len(l.nodes) == 0 {
-		return nil
-	}
-	return l.nodes[len(l.nodes)-1]
-}
-func (l *List) Reverse() {}
 
 func (l *List) String() string {
-	var result string
-	for _, node := range l.nodes {
-		result += fmt.Sprintf("%v\n", node)
-	}
+	//var result string
+	//for _, node := range l.nodes {
+	//	result += fmt.Sprintf("%v\n", node)
+	//}
 
-	return result
+	return ""
 }
