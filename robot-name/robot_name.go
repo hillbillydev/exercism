@@ -1,89 +1,49 @@
-// Package robotname handles the generation of robots.
+// Package robotname handles the generation of robot names.
 package robotname
 
 import (
 	"errors"
 	"fmt"
 	"math/rand"
+	"time"
 )
 
-var generator = newNameGenerator()
+var random = rand.New(rand.NewSource(time.Now().UnixNano()))
 
-// Robot represents the core struct in this package.
+var used = map[string]bool{}
+
+// Robot, makes sure humans does not need to work anymore.
 type Robot struct {
 	name string
 }
 
-// Name gives back the name of the robot,
-// if it doesn't have a name it generates one.
+// Name return the next name.
 func (r *Robot) Name() (string, error) {
+	if len(used) == 26*26*10*10*10 {
+		return "", errors.New("error: names exhausted")
+	}
+
 	if r.name != "" {
 		return r.name, nil
 	}
-	name, err := generator.next()
-	r.name = name
 
-	return name, err
+	r.name = generateName()
+	for used[r.name] {
+		r.name = generateName()
+	}
+    used[r.name] = true
+
+	return r.name, nil
 }
 
-// Reset resets the name of the robot.
-// Don't worry by calling for a name you'll get a new back.
 func (r *Robot) Reset() {
 	r.name = ""
 }
 
-type nameGenerator struct {
-	names  []string
-	cursor int
+func generateName() string {
+    r1 := random.Intn(26) + 'A'
+	r2 := random.Intn(26) + 'A'
+	num := random.Intn(1000)
+	return fmt.Sprintf("%c%c%03d", r1, r2, num)
 }
 
-func (g *nameGenerator) next() (string, error) {
-	if g.cursor == len(g.names) {
-		return "", errors.New("error: names exhausted")
-	}
-
-	next := g.names[g.cursor]
-	g.cursor++
-
-	return next, nil
-}
-
-func newNameGenerator() *nameGenerator {
-	return &nameGenerator{
-		names: generateNames(),
-	}
-}
-
-func generateNames() []string {
-	var (
-		result []string
-
-		first  = 'A'
-		second = 'A'
-		number = 0
-	)
-
-	for first <= 'Z' {
-		result = append(result, fmt.Sprintf("%s%s%03d", string(first), string(second), number))
-
-		if number != 999 {
-			number++
-			continue
-		}
-		number = 0
-		second++
-
-		if second <= 'Z' {
-			continue
-		}
-
-		first++
-		second = 'A'
-	}
-
-	rand.Shuffle(len(result), func(i, j int) {
-		result[i], result[j] = result[j], result[i]
-	})
-
-	return result
-}
